@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./config/routes");
 const logger = require("morgan");
+const expressGraphQL = require("express-graphql");
 var mongoose = require("./config/mongoose");
 
 const API_PORT = process.env.PORT || 3001;
@@ -17,6 +18,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
+
+app.use(
+  "/graphql",
+  expressGraphQL({
+    schema: {},
+    rootValue: {},
+    graphiql: true
+  })
+);
 
 if (process.env.NODE_ENV === "production")
   app.use("/", express.static("../ui/build"));
