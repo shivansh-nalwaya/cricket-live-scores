@@ -5,6 +5,7 @@ const routes = require("./config/routes");
 const logger = require("morgan");
 const expressGraphQL = require("express-graphql");
 var mongoose = require("./config/mongoose");
+const item = require("./schema/ItemSchema");
 
 const API_PORT = process.env.PORT || 3001;
 const app = express();
@@ -19,14 +20,7 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
 
-app.use(
-  "/graphql",
-  expressGraphQL({
-    schema: {},
-    rootValue: {},
-    graphiql: true
-  })
-);
+app.use("/graphql", expressGraphQL({ ...item, graphiql: true }));
 
 if (process.env.NODE_ENV === "production")
   app.use("/", express.static("../ui/build"));

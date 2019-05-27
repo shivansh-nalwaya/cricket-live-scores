@@ -2,11 +2,11 @@ const Item = require("../models").ItemModel;
 
 module.exports = {
   all: () => {
-    return Item.find().populate("user", "name");
+    return Item.find();
   },
 
   find: id => {
-    return Item.find({ _id: id }).populate("user", "name");
+    return Item.find({ _id: id });
   },
 
   create: data => {
