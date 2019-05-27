@@ -15,9 +15,6 @@ export const baseApi = isLocalhost
 export default class BaseModel {
   constructor(api) {
     this.baseApi = baseApi;
-    this.currentUserToken = (
-      JSON.parse(localStorage.getItem("currentUser")) || {}
-    ).token;
     this.api = api;
   }
 
@@ -26,15 +23,11 @@ export default class BaseModel {
   };
 
   create = data => {
-    this.currentUserToken = (
-      JSON.parse(localStorage.getItem("currentUser")) || {}
-    ).token;
     return fetch(`${baseApi}/${this.api}`, {
       method: "post",
       mode: "cors",
       headers: {
-        "Content-Type": "application/json",
-        "x-access-token": this.currentUserToken
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     }).then(handleReponse);
@@ -45,23 +38,16 @@ export default class BaseModel {
       JSON.parse(localStorage.getItem("currentUser")) || {}
     ).token;
     return fetch(`${baseApi}/${this.api}/${id}`, {
-      method: "delete",
-      headers: {
-        "x-access-token": this.currentUserToken
-      }
+      method: "delete"
     }).then(handleReponse);
   };
 
   update = (id, data) => {
-    this.currentUserToken = (
-      JSON.parse(localStorage.getItem("currentUser")) || {}
-    ).token;
     return fetch(`${baseApi}/${this.api}/${id}`, {
       method: "put",
       mode: "cors",
       headers: {
-        "Content-Type": "application/json",
-        "x-access-token": this.currentUserToken
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     }).then(handleReponse);

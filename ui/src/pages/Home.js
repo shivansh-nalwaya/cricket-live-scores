@@ -5,7 +5,7 @@ import { List, Input, Button } from "antd";
 import Item from "../models/ItemModel";
 import { handleErrors } from "../models/ErrorHandler";
 import { Container } from "../styles/Common";
-import { TextHeading, GrayText } from "../styles/Home";
+import { TextHeading } from "../styles/Home";
 
 const Search = Input.Search;
 
@@ -93,9 +93,7 @@ class Home extends Component {
                       enterButton="Save"
                     />
                   ) : (
-                    <div>
-                      {item.title} <GrayText>- By {item.user.name}</GrayText>
-                    </div>
+                    <div>{item.title}</div>
                   )
                 }
                 description={
