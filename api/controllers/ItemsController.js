@@ -20,8 +20,7 @@ module.exports = {
   show: function(req, res) {
     var id = req.params.id;
     ItemRepository.find(id)
-      .then(resp => {
-        result = resp[0];
+      .then(result => {
         res.send({
           result
         });

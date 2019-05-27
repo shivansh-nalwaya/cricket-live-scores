@@ -6,7 +6,7 @@ module.exports = {
   },
 
   find: id => {
-    return Item.find({ _id: id });
+    return Item.findOne({ _id: id });
   },
 
   create: data => {

@@ -2,15 +2,10 @@ const { buildASTSchema } = require("graphql");
 const gql = require("graphql-tag");
 const ItemRepository = require("../repositories/ItemRepository");
 
-let ITEMS = [];
-
-ItemRepository.all().then(data => {
-  ITEMS = data;
-});
-
 const schema = buildASTSchema(gql`
   type Query {
     items: [Item]
+    item(id: ID!): Item
   }
 
   type Item {
@@ -21,7 +16,8 @@ const schema = buildASTSchema(gql`
 `);
 
 const rootValue = {
-  items: () => ITEMS
+  items: () => ItemRepository.all(),
+  item: ({ id }) => ItemRepository.find(id)
 };
 
 module.exports = { schema, rootValue };
